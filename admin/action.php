@@ -19,4 +19,14 @@ if(!empty($_POST['action']) && $_POST['action'] == 'updateUser') {
 if(!empty($_POST['action']) && $_POST['action'] == 'listEmployee') {
 	$user->getemployeeList();
 }
+if(!empty($_POST['action']) && $_POST['action'] == 'getEmployee') {
+	$user->getEmployee();
+}
+if(!empty($_POST['action']) && $_POST['action'] == 'addEmployee') {
+	$user->addEmployee();
+}
+if(!empty($_POST['action']) && $_POST['action'] == 'updateEmployee') {
+	$user->updateEmployee();
+}
+
 ?>

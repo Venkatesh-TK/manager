@@ -453,14 +453,14 @@ class User extends Dbconfig {
 			// 	$status = '<span class="label label-danger">Deleted</span>';
 			// }
 			$userRows[] = $users['id'];
-			$userRows[] = $users['fullname'];
-			$userRows[] = $users['city'];			
+			$userRows[] = $users['fullname'];			
 			$userRows[] = $users['email'];	
 			$userRows[] = $users['mobile_number'];	
 			$userRows[] = $users['jobrole'];
+			$userRows[] = $users['city'];
 			// $userRows[] = $status;						
 			$userRows[] = '<button type="button" name="update" id="'.$users["id"].'" class="btn btn-warning btn-xs update">Update</button>';
-			$userRows[] = '<button type="button" name="delete" id="'.$users["id"].'" class="btn btn-danger btn-xs delete" >Delete</button>';
+			// $userRows[] = '<button type="button" name="delete" id="'.$users["id"].'" class="btn btn-danger btn-xs delete" >Delete</button>';
 			$userData[] = $userRows;
 		}
 		$output = array(
@@ -470,6 +470,34 @@ class User extends Dbconfig {
 			"data"    			=> 	$userData
 		);
 		echo json_encode($output);
+	}
+
+	public function getEmployee(){
+		$sqlQuery = "
+			SELECT * FROM employees 
+			WHERE id = '".$_POST["employeeid"]."'";
+		$result = mysqli_query($this->dbConnect, $sqlQuery);	
+		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		echo json_encode($row);
+	}
+
+
+	public function updateEmployee() {
+		if($_POST['employeeid']) {	
+			$updateQuery = "UPDATE employees 
+			SET fullname = '".$_POST["fullname"]."', email = '".$_POST["email"]."', mobile_number = '".$_POST["mobile_number"]."', jobrole = '".$_POST["jobrole"]."' , city = '".$_POST["city"]."', address = '".$_POST["address"]."'
+			WHERE id ='".$_POST["employeeid"]."'";
+			$isUpdated = mysqli_query($this->dbConnect, $updateQuery);		
+		}	
+	}
+
+	public function addEmployee () {
+		if($_POST["email"]) {
+			$authtoken = $this->getAuthtoken($_POST['email']);
+			$insertQuery = "INSERT INTO ".$this->userTable."(first_name, last_name, email, gender, password, mobile, designation, type, status, authtoken) 
+				VALUES ('".$_POST["firstname"]."', '".$_POST["lastname"]."', '".$_POST["email"]."', '".$_POST["gender"]."', '".md5($_POST["password"])."', '".$_POST["mobile"]."', '".$_POST["designation"]."', '".$_POST['user_type']."', 'active', '".$authtoken."')";
+			$userSaved = mysqli_query($this->dbConnect, $insertQuery);
+		}
 	}
 }
 ?>

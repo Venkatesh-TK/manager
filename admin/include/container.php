@@ -1,6 +1,6 @@
 <link rel="icon" type="image/png" href="http://webdamn.com/wp-content/themes/v2/webdamn.png">
 </head>
-<body class="">
+<!-- <body class="">
 <div role="navigation" class="navbar navbar-default navbar-static-top">
       <div class="container">
         <div class="navbar-header">
@@ -18,9 +18,9 @@
            
           </ul>
          
-        </div><!--/.nav-collapse -->
-      </div>
-    </div>
+        </div>/.nav-collapse -->
+      <!--</div>
+    </div> -->
 	
 	<div class="container" style="min-height:500px;">
 	<div class=''>
