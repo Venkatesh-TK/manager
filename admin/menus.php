@@ -25,6 +25,7 @@
 <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
     <ul class="nav nav-pills nav-stacked" style="border-right:1px solid black">       
         <li><a href="dashboard.php"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li><a href="user_list.php"><i class="fa fa-tags"></i> User List</a></li>        
+        <li><a href="user_list.php"><i class="fa fa-tags"></i> User List</a></li>     
+        <li><a href="employee_list.php"><i class="fa fa-tags"></i> Employee List</a></li>     
 	</ul>
 </div>

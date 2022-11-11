@@ -306,6 +306,7 @@ class User extends Dbconfig {
 		);
 		echo json_encode($output);
 	}
+	
 	public function deleteUser(){
 		if($_POST["userid"]) {
 			$sqlUpdate = "
@@ -403,42 +404,72 @@ class User extends Dbconfig {
 			$emp_id = $output["id"];
 			//echo $emp_id;
 			++$a;
-		// 	$sql= "SELECT * FROM `assets` WHERE empid = '$emp_id'";
-		// 	$result = mysqli_query($this->dbConnect, $sqlQuery);
-		// $results = mysqli_fetch_assoc($result);
-		
-		// foreach($results as $output ) {
-		// 	$emp_id1 = $output["id"];
-		// 	echo $emp_id1;
-		// 	++$a;
-		// }
-
-
 		}
 
 		}
 		
-		
-
-			// try{
-			// 	$stmt = $conn->prepare($sql);
-			// 	$stmt->execute();
-			
-			// 	$resultSet = $stmt->get_result();
-			// 	$results = $resultSet->fetch_all(MYSQLI_ASSOC);
-			// }
-			// catch (Exception $ex) {
-			// 	echo ($ex -> getMessage());
-			// }
-			// foreach($results as $output ) {
-            //     //employee details collection
-			// 	$emp_email = $output["email"];
-            //     $emp_name = $output["fullname"];
-            //     $managerid = $output["manager_id"];
 
 		return $a;
 		
 			
+	}
+
+	//get employeelist
+	public function getemployeeList(){		
+		$sqlQuery = "SELECT * FROM employees WHERE manager_id ='".$_SESSION['adminUserid']."' ";
+		//no search required
+		// if(!empty($_POST["search"]["value"])){
+		// 	$sqlQuery .= '(id LIKE "%'.$_POST["search"]["value"].'%" ';
+		// 	$sqlQuery .= ' OR first_name LIKE "%'.$_POST["search"]["value"].'%" ';
+		// 	$sqlQuery .= ' OR last_name LIKE "%'.$_POST["search"]["value"].'%" ';
+		// 	$sqlQuery .= ' OR designation LIKE "%'.$_POST["search"]["value"].'%" ';
+		// 	$sqlQuery .= ' OR status LIKE "%'.$_POST["search"]["value"].'%" ';
+		// 	$sqlQuery .= ' OR mobile LIKE "%'.$_POST["search"]["value"].'%") ';			
+		// }
+		// if(!empty($_POST["order"])){
+		// 	$sqlQuery .= 'ORDER BY '.$_POST['order']['0']['column'].' '.$_POST['order']['0']['dir'].' ';
+		// } else {
+		// 	$sqlQuery .= 'ORDER BY id DESC ';
+		// }
+		// if($_POST["length"] != -1){
+		// 	$sqlQuery .= 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
+		// }	
+		$result = mysqli_query($this->dbConnect, $sqlQuery);
+		
+		// $sqlQuery1 = "SELECT * FROM ".$this->userTable." WHERE id !='".$_SESSION['adminUserid']."' ";
+		// $result1 = mysqli_query($this->dbConnect, $sqlQuery1);
+		$numRows = mysqli_num_rows($result);
+		
+		$userData = array();	
+		while( $users = mysqli_fetch_assoc($result) ) {		
+			$userRows = array();
+			//no status is coming 
+			// $status = '';
+			// if($users['status'] == 'active')	{
+			// 	$status = '<span class="label label-success">Active</span>';
+			// } else if($users['status'] == 'pending') {
+			// 	$status = '<span class="label label-warning">Inactive</span>';
+			// } else if($users['status'] == 'deleted') {
+			// 	$status = '<span class="label label-danger">Deleted</span>';
+			// }
+			$userRows[] = $users['id'];
+			$userRows[] = $users['fullname'];
+			$userRows[] = $users['city'];			
+			$userRows[] = $users['email'];	
+			$userRows[] = $users['mobile_number'];	
+			$userRows[] = $users['jobrole'];
+			// $userRows[] = $status;						
+			$userRows[] = '<button type="button" name="update" id="'.$users["id"].'" class="btn btn-warning btn-xs update">Update</button>';
+			$userRows[] = '<button type="button" name="delete" id="'.$users["id"].'" class="btn btn-danger btn-xs delete" >Delete</button>';
+			$userData[] = $userRows;
+		}
+		$output = array(
+			"draw"				=>	intval($_POST["draw"]),
+			"recordsTotal"  	=>  $numRows,
+			"recordsFiltered" 	=> 	$numRows,
+			"data"    			=> 	$userData
+		);
+		echo json_encode($output);
 	}
 }
 ?>
