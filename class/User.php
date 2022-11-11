@@ -567,5 +567,63 @@ class User extends Dbconfig {
 		);
 		echo json_encode($output);
 	}
+
+	// request list
+	public function getRequestList(){		
+		$sqlQuery = "SELECT * FROM request WHERE managerid ='".$_SESSION['adminUserid']."' ";
+
+		//   WHERE id !='".$_SESSION['adminUserid']."' ";
+		// if(!empty($_POST["search"]["value"])){
+		// 	$sqlQuery .= '(id LIKE "%'.$_POST["search"]["value"].'%" ';
+		// 	$sqlQuery .= ' OR first_name LIKE "%'.$_POST["search"]["value"].'%" ';
+		// 	$sqlQuery .= ' OR last_name LIKE "%'.$_POST["search"]["value"].'%" ';
+		// 	$sqlQuery .= ' OR designation LIKE "%'.$_POST["search"]["value"].'%" ';
+		// 	$sqlQuery .= ' OR status LIKE "%'.$_POST["search"]["value"].'%" ';
+		// 	$sqlQuery .= ' OR mobile LIKE "%'.$_POST["search"]["value"].'%") ';			
+		// }
+		// if(!empty($_POST["order"])){
+		// 	$sqlQuery .= 'ORDER BY '.$_POST['order']['0']['column'].' '.$_POST['order']['0']['dir'].' ';
+		// } else {
+		// 	$sqlQuery .= 'ORDER BY id DESC ';
+		// }
+		// if($_POST["length"] != -1){
+		// 	$sqlQuery .= 'LIMIT ' . $_POST['start'] . ', ' . $_POST['length'];
+		// }	
+		$result = mysqli_query($this->dbConnect, $sqlQuery);
+		
+		// $sqlQuery1 = "SELECT * FROM ".$this->userTable." WHERE id !='".$_SESSION['adminUserid']."' ";
+		// $result1 = mysqli_query($this->dbConnect, $sqlQuery1);
+		$numRows = mysqli_num_rows($result);
+		
+		$userData = array();	
+		while( $users = mysqli_fetch_assoc($result) ) {		
+			$userRows = array();
+			// $status = '';
+			// if($users['status'] == 'active')	{
+			// 	$status = '<span class="label label-success">Active</span>';
+			// } else if($users['status'] == 'pending') {
+			// 	$status = '<span class="label label-warning">Inactive</span>';
+			// } else if($users['status'] == 'deleted') {
+			// 	$status = '<span class="label label-danger">Deleted</span>';
+			// }
+			$userRows[] = $users['id'];
+			$userRows[] = $users['status'];
+			$userRows[] = $users['employee_name'];			
+			$userRows[] = $users['company'];	
+			$userRows[] = $users['asset_type'];	
+			$userRows[] = $users['asset_details'];
+			// $userRows[] = $status;						
+			$userRows[] = '<button type="button" name="update" id="'.$users["id"].'" class="btn btn-warning btn-xs update">Update</button>';
+			$userRows[] = '<button type="button" name="delete" id="'.$users["id"].'" class="btn btn-danger btn-xs delete" >Delete</button>';
+			$userData[] = $userRows;
+		}
+		$output = array(
+			"draw"				=>	intval($_POST["draw"]),
+			"recordsTotal"  	=>  $numRows,
+			"recordsFiltered" 	=> 	$numRows,
+			"data"    			=> 	$userData
+		);
+		echo json_encode($output);
+	}
 }
 ?>
