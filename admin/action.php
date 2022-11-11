@@ -28,5 +28,8 @@ if(!empty($_POST['action']) && $_POST['action'] == 'addEmployee') {
 if(!empty($_POST['action']) && $_POST['action'] == 'updateEmployee') {
 	$user->updateEmployee();
 }
+if(!empty($_POST['action']) && $_POST['action'] == 'listAsset') {
+	$user->getAssetList();
+}
 
 ?>
