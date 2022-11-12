@@ -22,9 +22,7 @@ include('include/header.php');
 				<div class="col-md-10">
 					<h3 class="panel-title"></h3>
 				</div>
-				<div class="col-md-2" align="right">
-					<button type="button" name="add" id="addUser" class="btn btn-success btn-xs">Add</button>
-				</div>
+				
 			</div>
 		</div>
 		<table id="assetList" class="table table-bordered table-striped">

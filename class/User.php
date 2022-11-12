@@ -613,7 +613,14 @@ class User extends Dbconfig {
 			$userRows[] = $users['asset_type'];	
 			$userRows[] = $users['asset_details'];
 			// $userRows[] = $status;						
-			$userRows[] = '<button type="button" name="update" id="'.$users["id"].'" class="btn btn-warning btn-xs update">Update</button>';
+// 			$userRows[] = if($users['id']=="1"){
+// 				echo
+// "<a href=deactivate.php?id=".$users['id']." class='btn red'>Deactivate</a>";
+// echo
+// "<a href=activate.php?id=".$users['id']." class='btn green'>Activate</a>";}
+// 			else
+// 				echo "Active";
+$userRows[] = '<button type="button" name="update" id="'.$users["id"].'" class="btn btn-warning btn-xs update">Update</button>';
 			$userRows[] = '<button type="button" name="delete" id="'.$users["id"].'" class="btn btn-danger btn-xs delete" >Delete</button>';
 			$userData[] = $userRows;
 		}
