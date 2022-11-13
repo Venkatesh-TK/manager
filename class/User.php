@@ -620,7 +620,7 @@ class User extends Dbconfig {
 // "<a href=activate.php?id=".$users['id']." class='btn green'>Activate</a>";}
 // 			else
 // 				echo "Active";
-$userRows[] = '<button type="button" name="update" id="'.$users["id"].'" class="btn btn-warning btn-xs update">Update</button>';
+		$userRows[] = '<button type="button" name="update" id="'.$users["id"].'" class="btn btn-warning btn-xs update">Update</button>';
 			$userRows[] = '<button type="button" name="delete" id="'.$users["id"].'" class="btn btn-danger btn-xs delete" >Delete</button>';
 			$userData[] = $userRows;
 		}
@@ -632,5 +632,36 @@ $userRows[] = '<button type="button" name="update" id="'.$users["id"].'" class="
 		);
 		echo json_encode($output);
 	}
+
+	public function totalRequests () {
+		$query = '';
+		
+		$sqlQuery = "SELECT * FROM request 
+		WHERE managerid ='".$_SESSION["adminUserid"]."' $query";
+		$result = mysqli_query($this->dbConnect, $sqlQuery);
+		$numRows = mysqli_num_rows($result);
+		return $numRows;
+	}
+
+	public function totalPendingRequests () {
+		$query = '';
+		
+		$sqlQuery = "SELECT * FROM request 
+		WHERE managerid ='".$_SESSION["adminUserid"]."' AND status NOT IN (2,3,4,5) $query";
+		$result = mysqli_query($this->dbConnect, $sqlQuery);
+		$numRows = mysqli_num_rows($result);
+		return $numRows;
+	}
+
+	public function totalApprovedAssets () {
+		$query = '';
+		
+		$sqlQuery = "SELECT * FROM request 
+		WHERE managerid ='".$_SESSION["adminUserid"]."' AND status  IN (2) $query";
+		$result = mysqli_query($this->dbConnect, $sqlQuery);
+		$numRows = mysqli_num_rows($result);
+		return $numRows;
+	}
+
 }
 ?>

@@ -5,7 +5,7 @@ $user->adminLoginStatus();
 include('include/header.php');
 $con = mysqli_connect("127.0.0.1:4306","root","","test2");
 
-        $per_page_record = 5;          
+        $per_page_record = 6;          
         if (isset($_GET["page"])) {    
             $page  = $_GET["page"];    
         }    
@@ -158,7 +158,7 @@ $con = mysqli_connect("127.0.0.1:4306","root","","test2");
 					<th>Company</th>
 					<th>Asset Type</th>
 					<th>Asset Detail</th>					
-					<th></th>
+					<th>Status</th>
 					<!-- <th></th> -->
 					
 				</tr>
