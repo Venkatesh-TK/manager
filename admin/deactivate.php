@@ -23,7 +23,9 @@
     <?php include('include/container.php');?>
     <div class="container contact">	
 	<h2>Example: User Management System with PHP & MySQL</h2>	
-	<?php include 'menus.php'; ?>
+	<?php include 'menus.php';
+     ?>
+    
 	<div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">   
 		<a href="#"><strong><span class="fa fa-dashboard"></span> Reason for Reject</strong></a>
 		<hr>		
@@ -47,38 +49,40 @@
         <?php 
            
           $ids= $_GET['id'];
-          $sql1 = "SELECT * FROM request WHERE id = {$ids}";
-          $result = mysqli_query($con, $sql1);
-          $row = mysqli_fetch_array($result);
+         // $sql1 = "SELECT * FROM request WHERE id = {$ids}";
+         // $result = mysqli_query($con, $sql1);
+         // $row = mysqli_fetch_array($result);
           if(isset($_POST['btn_update'])){
+
+            $course_id=$_GET['id'];
             $reject_comments = $_POST['reject_comments'];
             $updateQuery = "UPDATE request 
-			SET reject_comments = '".$_POST["reject_comments"]."'
+			SET reject_comments = '".$_POST["reject_comments"]."', `status`= 3
 			WHERE id={$ids}";
             $isUpdated = mysqli_query($con, $updateQuery);
-
-            if (isset($_GET['id']))
-            {
-                $course_id=$_GET['id'];
+           // header("location:requestlist.php"); 
+            // if (isset($_GET['id']))
+            // {
+            //     // $course_id=$_GET['id'];
         
-                $sql="UPDATE `request` SET
-                    `status`= 3 WHERE id='$course_id'";
+            //     $sql="UPDATE `request` SET
+            //         `status`= 3 WHERE id='$course_id'";
         
                 // Execute the query
                 mysqli_query($con,$sql);
+                echo "<script>
+                window.location.href = 'requestlist.php';
+                
+        </script>";
+                
+                
             }  
 
-            if( $isUpdated){
-               
-        ?>
-                <script>alert("DATA updat")</script>
-                 <?php }
-                else{ ?> 
-                <script> alert ("no update")</script>
-                <?php } 
-    }
+            
+
+    // }
      
-	// Check if id is set or not, if true,
+	// Check if id is set or not, if true,// window.history.go(-2);
 	// toggle else simply go back to the page
 	
     
@@ -97,13 +101,13 @@
 	
 
 	// Go back to list page after done
-    header("location:requestlist.php"); 
-
+   
     //using echo function
     //     echo "<script>
     
     //     window.history.go(-1);
     // </script>";
+
 ?>
 
 

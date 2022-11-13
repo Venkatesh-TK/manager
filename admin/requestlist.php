@@ -5,12 +5,22 @@ $user->adminLoginStatus();
 include('include/header.php');
 $con = mysqli_connect("127.0.0.1:4306","root","","test2");
 
+        $per_page_record = 5;          
+        if (isset($_GET["page"])) {    
+            $page  = $_GET["page"];    
+        }    
+        else {    
+        $page=1;    
+        }    
+        $start_from = ($page-1) * $per_page_record; 
 
-	$sql = "SELECT * FROM request WHERE managerid ='".$_SESSION['adminUserid']."'";
+	$sql = "SELECT * FROM request  WHERE managerid ='".$_SESSION['adminUserid']."' LIMIT $start_from, $per_page_record";
 	$Sql_query = mysqli_query($con,$sql);
 	$All_request = mysqli_fetch_all($Sql_query,MYSQLI_ASSOC);
+
+   
 ?>
-<title>webdamn.com : Demo User Management System with PHP & MySQL</title>
+<title>request list</title>
 <script src="js/jquery.dataTables.min.js"></script>
 <script src="js/dataTables.bootstrap.min.js"></script>		
 <link rel="stylesheet" href="css/dataTables.bootstrap.min.css" />
@@ -99,11 +109,34 @@ $con = mysqli_connect("127.0.0.1:4306","root","","test2");
 			margin: 4px 2px;
 			border-radius: 15px;
         }
+        .pagination {   
+        display: inline-block;  
+        float: right; 
+    }   
+    .pagination a {   
+        font-weight:none;   
+        font-size:18px;   
+        color: black;   
+        float: left;   
+        padding: 8px 12px;   
+        text-decoration: none;   
+        border:1px solid black;   
+    }   
+    .pagination a.active {   
+            background-color: #337ab7;   
+    }   
+    .pagination a:hover:not(.active) {   
+        background-color: skyblue;   
+    }  
+    .pagination .inline {   
+        display: inline-block;  
+        float: left; 
+    }    
 
     </style>
 <?php include('include/container.php');?>
 <div class="container contact">	
-	<h2>Example: User Management System with PHP & MySQL</h2>	
+	<h2>Request List from Employees</h2>	
 	<?php include 'menus.php'; ?>
 	<div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">   
 		<a href="#"><strong><span class="fa fa-dashboard"></span> Request List</strong></a>
@@ -119,9 +152,9 @@ $con = mysqli_connect("127.0.0.1:4306","root","","test2");
 		<table id="newtable" class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<th>ID</th>
-					<th>Status</th>
+					<th>Employee ID</th>					
 					<th>Employee Name</th>
+                    <th>Employee Email</th>
 					<th>Company</th>
 					<th>Asset Type</th>
 					<th>Asset Detail</th>					
@@ -132,9 +165,9 @@ $con = mysqli_connect("127.0.0.1:4306","root","","test2");
 			</thead>
            <?php foreach ($All_request as $request) { ?>
 			<tr>
-				<td><?php echo $request['id']; ?></td>
-                <td><?php echo $request['status']; ?></td>
+				<td><?php echo $request['employee_id']; ?></td>
                 <td><?php echo $request['employee_name']; ?></td>
+                <td><?php echo $request['employee_emailid']; ?></td>
                 <td><?php echo $request['company']; ?></td>
                 <td><?php echo $request['asset_type']; ?></td>
                 <td><?php echo $request['asset_details']; ?></td>
@@ -169,6 +202,51 @@ $con = mysqli_connect("127.0.0.1:4306","root","","test2");
 				} ?>
 
 		</table>
+
+        <div class="pagination">    
+      <?php  
+        $query = "SELECT COUNT(*) FROM request";     
+        $rs_result = mysqli_query($con, $query);     
+        $row = mysqli_fetch_row($rs_result);     
+        $total_records = $row[0];     
+          
+        echo "</br>";     
+        // Number of pages required.   
+        $total_pages = ceil($total_records / $per_page_record);     
+        $pagLink = "";       
+      
+        if($page>=2){   
+            echo "<a href='requestlist.php?page=".($page-1)."'>  Prev </a>";   
+        }       
+                   
+        for ($i=1; $i<=$total_pages; $i++) {   
+          if ($i == $page) {   
+              $pagLink .= "<a class = 'active' href='requestlist.php?page="  
+                                                .$i."'>".$i." </a>";   
+          }               
+          else  {   
+              $pagLink .= "<a href='requestlist.php?page=".$i."'>   
+                                                ".$i." </a>";     
+          }   
+        };     
+        echo $pagLink;   
+  
+        if($page<$total_pages){   
+            echo "<a href='requestlist.php?page=".($page+1)."'>  Next </a>";   
+        }   
+  
+      ?> 
+      
+      </div> 
+      
+      <div class="inline">   
+        <input id="page" type="number" min="1" max="<?php echo $total_pages?>"   
+        placeholder="<?php echo $page."/".$total_pages; ?>" required>   
+        <button onClick="go2Page();">Go</button>   
+      </div>
+
+        
+
 	</div>
 	<div id="userModal" class="modal fade">
     	<div class="modal-dialog">
@@ -241,5 +319,14 @@ $con = mysqli_connect("127.0.0.1:4306","root","","test2");
     		</form>
     	</div>
     </div>
+    <script>   
+    function go2Page()   
+    {   
+        var page = document.getElementById("page").value;   
+        page = ((page><?php echo $total_pages; ?>)?<?php echo $total_pages; ?>:((page<1)?1:page));   
+        window.location.href = 'requestlist.php?page='+page;   
+    }   
+  </script>  
+
 </div>	
 <?php include('include/footer.php');?>

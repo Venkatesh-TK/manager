@@ -4,7 +4,7 @@ $user = new User();
 $user->adminLoginStatus();
 include('include/header.php');
 ?>
-<title>webdamn.com : Demo User Management System with PHP & MySQL</title>
+<title>asset list</title>
 <script src="js/jquery.dataTables.min.js"></script>
 <script src="js/dataTables.bootstrap.min.js"></script>		
 <link rel="stylesheet" href="css/dataTables.bootstrap.min.css" />
@@ -12,7 +12,7 @@ include('include/header.php');
 <link rel="stylesheet" href="css/style.css">
 <?php include('include/container.php');?>
 <div class="container contact">	
-	<h2>Example: User Management System with PHP & MySQL</h2>	
+	<h2>Total Asset List</h2>	
 	<?php include 'menus.php'; ?>
 	<div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">   
 		<a href="#"><strong><span class="fa fa-dashboard"></span> Asset List</strong></a>

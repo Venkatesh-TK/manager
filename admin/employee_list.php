@@ -4,7 +4,7 @@ $user = new User();
 $user->adminLoginStatus();
 include('include/header.php');
 ?>
-<title>webdamn.com : Demo User Management System with PHP & MySQL</title>
+<title>employee list</title>
 <script src="js/jquery.dataTables.min.js"></script>
 <script src="js/dataTables.bootstrap.min.js"></script>		
 <link rel="stylesheet" href="css/dataTables.bootstrap.min.css" />
@@ -12,7 +12,7 @@ include('include/header.php');
 <link rel="stylesheet" href="css/style.css">
 <?php include('include/container.php');?>
 <div class="container contact">	
-	<h2>Example: User Management System with PHP & MySQL</h2>	
+	<h2>Employees List</h2>	
 	<?php include 'menus.php'; ?>
 	<div class="col-lg-10 col-md-10 col-sm-9 col-xs-12">   
 		<a href="#"><strong><span class="fa fa-dashboard"></span> Employee List</strong></a>
@@ -77,34 +77,7 @@ include('include/header.php');
 							<label for="lastname" class="control-label">Address</label>							
 							<input type="text" class="form-control" id="address" name="address" placeholder="Address">							
 						</div>
-						<!-- <div class="form-group">
-							<label for="gender" class="control-label">Gender</label>							
-							<label class="radio-inline">
-								<input type="radio" name="gender" id="male" value="male" required>Male
-							</label>;
-							<label class="radio-inline">
-								<input type="radio" name="gender" id="female" value="female" required>Female
-							</label>							
-						</div>	 -->
-							
-						<!-- <div class="form-group">
-							<label for="gender" class="control-label">Status</label>							
-							<label class="radio-inline">
-								<input type="radio" name="status" id="active" value="active" required>Active
-							</label>;
-							<label class="radio-inline">
-								<input type="radio" name="status" id="pending" value="pending" required>Pending
-							</label>							
-						</div> -->
-						<!-- <div class="form-group">
-							<label for="user_type" class="control-label">User Type</label>							
-							<label class="radio-inline">
-								<input type="radio" name="user_type" id="general" value="general" required>General
-							</label>;
-							<label class="radio-inline">
-								<input type="radio" name="user_type" id="administrator" value="administrator" required>Administrator
-							</label>							
-						</div>	 -->
+						
     				</div>
     				<div class="modal-footer">
     					<input type="hidden" name="employeeid" id="employeeid" />
