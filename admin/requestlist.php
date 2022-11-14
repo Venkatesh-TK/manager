@@ -14,7 +14,7 @@ $con = mysqli_connect("127.0.0.1:4306","root","","test2");
         }    
         $start_from = ($page-1) * $per_page_record; 
 
-	$sql = "SELECT * FROM request  WHERE managerid ='".$_SESSION['adminUserid']."' LIMIT $start_from, $per_page_record";
+	$sql = "SELECT * FROM request  WHERE managerid ='".$_SESSION['adminUserid']."'  ORDER BY id DESC LIMIT $start_from, $per_page_record";
 	$Sql_query = mysqli_query($con,$sql);
 	$All_request = mysqli_fetch_all($Sql_query,MYSQLI_ASSOC);
 
@@ -115,7 +115,7 @@ $con = mysqli_connect("127.0.0.1:4306","root","","test2");
     }   
     .pagination a {   
         font-weight:none;   
-        font-size:18px;   
+        font-size:15px;   
         color: black;   
         float: left;   
         padding: 8px 12px;   
@@ -131,6 +131,7 @@ $con = mysqli_connect("127.0.0.1:4306","root","","test2");
     .pagination .inline {   
         display: inline-block;  
         float: left; 
+        width: 20%;
     }    
 
     </style>
@@ -146,7 +147,13 @@ $con = mysqli_connect("127.0.0.1:4306","root","","test2");
 				<div class="col-md-10">
 					<h3 class="panel-title"></h3>
 				</div>
-				
+				<div class="col-ms-6" >
+                    <div id="requestlist_filter" class="dataTables_filter">
+                        <label >Search: <input type="search"  class="form-control input-sm">
+					    
+                        </label>
+				    </div>
+                </div>
 			</div>
 		</div>
 		<table id="newtable" class="table table-bordered table-striped">
@@ -242,91 +249,25 @@ $con = mysqli_connect("127.0.0.1:4306","root","","test2");
       <div class="inline">   
         <input id="page" type="number" min="1" max="<?php echo $total_pages?>"   
         placeholder="<?php echo $page."/".$total_pages; ?>" required>   
-        <button onClick="go2Page();">Go</button>   
+        <button onClick="go2Page();">Go  </button>  
+        <h5> Showing <?php echo $page."/".$total_pages; ?></h5> 
       </div>
+
+        <script>   
+        function go2Page()   
+        {   
+            var page = document.getElementById("page").value;   
+            page = ((page><?php echo $total_pages; ?>)?<?php echo $total_pages; ?>:((page<1)?1:page));   
+            window.location.href = 'requestlist.php?page='+page;   
+        }   
+        </script>  
 
         
 
 	</div>
-	<div id="userModal" class="modal fade">
-    	<div class="modal-dialog">
-    		<form method="post" id="userForm">
-    			<div class="modal-content">
-    				<div class="modal-header">
-    					<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4 class="modal-title"><i class="fa fa-plus"></i> Edit User</h4>
-    				</div>
-    				<div class="modal-body">
-						<div class="form-group">
-							<label for="firstname" class="control-label">First Name*</label>
-							<input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name" required>							
-						</div>
-						<div class="form-group">
-							<label for="lastname" class="control-label">Last Name</label>							
-							<input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name">							
-						</div>	   	
-						<div class="form-group">
-							<label for="lastname" class="control-label">Email*</label>							
-							<input type="text" class="form-control"  id="email" name="email" placeholder="Email" required>							
-						</div>	 
-						<div class="form-group" id="passwordSection">
-							<label for="lastname" class="control-label">Password*</label>							
-							<input type="password" class="form-control"  id="password" name="password" placeholder="Password" required>							
-						</div>
-						<div class="form-group">
-							<label for="gender" class="control-label">Gender</label>							
-							<label class="radio-inline">
-								<input type="radio" name="gender" id="male" value="male" required>Male
-							</label>;
-							<label class="radio-inline">
-								<input type="radio" name="gender" id="female" value="female" required>Female
-							</label>							
-						</div>	
-						<div class="form-group">
-							<label for="lastname" class="control-label">Mobile</label>							
-							<input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile">							
-						</div>	 
-						<div class="form-group">
-							<label for="lastname" class="control-label">Designation</label>							
-							<input type="text" class="form-control" id="designation" name="designation" placeholder="designation">							
-						</div>	
-						<div class="form-group">
-							<label for="gender" class="control-label">Status</label>							
-							<label class="radio-inline">
-								<input type="radio" name="status" id="active" value="active" required>Active
-							</label>;
-							<label class="radio-inline">
-								<input type="radio" name="status" id="pending" value="pending" required>Pending
-							</label>							
-						</div>
-						<div class="form-group">
-							<label for="user_type" class="control-label">User Type</label>							
-							<label class="radio-inline">
-								<input type="radio" name="user_type" id="general" value="general" required>General
-							</label>;
-							<label class="radio-inline">
-								<input type="radio" name="user_type" id="administrator" value="administrator" required>Administrator
-							</label>							
-						</div>	
-    				</div>
-    				<div class="modal-footer">
-    					<input type="hidden" name="userid" id="userid" />
-    					<input type="hidden" name="action" id="action" value="updateUser" />
-    					<input type="submit" name="save" id="save" class="btn btn-info" value="Save" />
-    					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    				</div>
-    			</div>
-    		</form>
-    	</div>
-    </div>
-    <script>   
-    function go2Page()   
-    {   
-        var page = document.getElementById("page").value;   
-        page = ((page><?php echo $total_pages; ?>)?<?php echo $total_pages; ?>:((page<1)?1:page));   
-        window.location.href = 'requestlist.php?page='+page;   
-    }   
-  </script>  
+	
+    
+    
 
 </div>	
 <?php include('include/footer.php');?>
