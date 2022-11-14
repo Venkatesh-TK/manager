@@ -1,7 +1,7 @@
 <?php
 
 	// Connect to database
-	$con=mysqli_connect("127.0.0.1:4306","root","","test2");
+	$con=mysqli_connect("127.0.0.1:4306","root","","test");
 
 	// Check if id is set or not, if true,
 	// toggle else simply go back to the page

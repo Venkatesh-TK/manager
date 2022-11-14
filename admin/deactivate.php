@@ -1,13 +1,13 @@
 <?php
 
 	// Connect to database
-	$con=mysqli_connect("127.0.0.1:4306","root","","test2");
+	$con=mysqli_connect("127.0.0.1:4306","root","","test");
 
     include('../class/User.php');
     $user = new User();
     $user->adminLoginStatus();
     include('include/header.php');
-    // $con = mysqli_connect("127.0.0.1:4306","root","","test2");
+    // $con = mysqli_connect("127.0.0.1:4306","root","","test");
     
     
     //     $sql = "SELECT * FROM `request`";

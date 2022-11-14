@@ -1,7 +1,7 @@
 <?php
 
 	// Connect to database
-	$con = mysqli_connect("127.0.0.1:4306","root","","test2");
+	$con = mysqli_connect("127.0.0.1:4306","root","","test");
 
 	// Get all the courses from courses table
 	// execute the query

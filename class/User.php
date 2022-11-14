@@ -6,7 +6,7 @@ class User extends Dbconfig {
     protected $userName;
     protected $password;
 	protected $dbName;
-	private $userTable = 'user';
+	private $userTable = 'manager';
 	private $dbConnect = false;
     public function __construct(){
         if(!$this->dbConnect){ 		
@@ -368,7 +368,7 @@ class User extends Dbconfig {
 			$query = " AND status = '".$status."'";
 		}
 		$sqlQuery = "SELECT * FROM employees 
-		WHERE manager_id ='".$_SESSION["adminUserid"]."' $query";
+		WHERE managerid ='".$_SESSION["adminUserid"]."' $query";
 		$result = mysqli_query($this->dbConnect, $sqlQuery);
 		$numRows = mysqli_num_rows($result);
 		return $numRows;
@@ -381,7 +381,7 @@ class User extends Dbconfig {
 			$query = " AND status = '".$status."'";
 		}
 		$sqlQuery = "SELECT * FROM employees 
-		WHERE manager_id ='".$_SESSION["adminUserid"]."' $query";
+		WHERE managerid ='".$_SESSION["adminUserid"]."' $query";
 		$result = mysqli_query($this->dbConnect, $sqlQuery);
 		//$results = mysqli_fetch_assoc($result);
 		$results1 = $result->fetch_all(MYSQLI_ASSOC);
@@ -393,7 +393,7 @@ class User extends Dbconfig {
 			//echo $emp_id;
 
 			$sqlQuery = "SELECT * FROM assets 
-		WHERE empid ='$emp_id' $query";
+		WHERE employeeid ='$emp_id' $query";
 		$result = mysqli_query($this->dbConnect, $sqlQuery);
 		//$results = mysqli_fetch_assoc($result);
 		$results1 = $result->fetch_all(MYSQLI_ASSOC);
@@ -416,7 +416,7 @@ class User extends Dbconfig {
 
 	//get employeelist
 	public function getemployeeList(){		
-		$sqlQuery = "SELECT * FROM employees WHERE manager_id ='".$_SESSION['adminUserid']."' ORDER BY id DESC ";
+		$sqlQuery = "SELECT * FROM employees WHERE managerid ='".$_SESSION['adminUserid']."' ORDER BY id DESC ";
 		//no search required
 		
 		$result = mysqli_query($this->dbConnect, $sqlQuery);
@@ -479,7 +479,7 @@ class User extends Dbconfig {
 	//get Asset List
 	public function getAssetList(){	
 		
-		$sqlQuery = "SELECT a.id, a.assettag, a.name, a.serial, a.description FROM assets a, employees e WHERE e.manager_id ='".$_SESSION['adminUserid']."' AND a.empid = e.id ORDER BY id DESC";
+		$sqlQuery = "SELECT a.id, a.assettag, a.name, a.serial, a.description FROM assets a, employees e WHERE e.managerid ='".$_SESSION['adminUserid']."' AND a.employeeid = e.id ORDER BY id DESC";
 		
 			
 		$result = mysqli_query($this->dbConnect, $sqlQuery);
