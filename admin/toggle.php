@@ -1,7 +1,7 @@
 <?php
-
+	include('details.php');
 	// Connect to database
-	$con = mysqli_connect("127.0.0.1:4306","root","","test");
+	$con = mysqli_connect($host,$username,$password,$database);
 
 	// Get all the courses from courses table
 	// execute the query
@@ -88,9 +88,9 @@
 						// red-deactivate
 						// green- activate
 						echo
-"<a href=deactivate.php?id=".$course['id']." class='btn red'>Deactivate</a>";
-echo
-"<a href=activate.php?id=".$course['id']." class='btn green'>Activate</a>";}
+						"<a href=deactivate.php?id=".$course['id']." class='btn red'>Deactivate</a>";
+						echo
+						"<a href=activate.php?id=".$course['id']." class='btn green'>Activate</a>";}
 					else
 						echo "Active";
 					?>

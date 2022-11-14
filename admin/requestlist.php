@@ -3,7 +3,9 @@ include('../class/User.php');
 $user = new User();
 $user->adminLoginStatus();
 include('include/header.php');
-$con = mysqli_connect("127.0.0.1:4306","root","","test");
+include('details.php');
+
+$con = mysqli_connect($host,$username,$password,$database);
 
         $per_page_record = 6;          
         if (isset($_GET["page"])) {    
@@ -172,12 +174,12 @@ $con = mysqli_connect("127.0.0.1:4306","root","","test");
 			</thead>
            <?php foreach ($All_request as $request) { ?>
 			<tr>
-				<td><?php echo $request['employee_id']; ?></td>
-                <td><?php echo $request['employee_name']; ?></td>
-                <td><?php echo $request['employee_emailid']; ?></td>
+				<td><?php echo $request['employeeid']; ?></td>
+                <td><?php echo $request['employeename']; ?></td>
+                <td><?php echo $request['employeemailid']; ?></td>
                 <td><?php echo $request['company']; ?></td>
-                <td><?php echo $request['asset_type']; ?></td>
-                <td><?php echo $request['asset_details']; ?></td>
+                <td><?php echo $request['assettype']; ?></td>
+                <td><?php echo $request['assetdetails']; ?></td>
                 <td>
 					<?php
 					if($request['status']=="1"){

@@ -1,20 +1,16 @@
 <?php
+    include('details.php');
 
 	// Connect to database
-	$con=mysqli_connect("127.0.0.1:4306","root","","test");
+	$con=mysqli_connect($host,$username,$password,$database);
 
     include('../class/User.php');
     $user = new User();
     $user->adminLoginStatus();
     include('include/header.php');
-    // $con = mysqli_connect("127.0.0.1:4306","root","","test");
     
-    
-    //     $sql = "SELECT * FROM `request`";
-    //     $Sql_query = mysqli_query($con,$sql);
-    //     $All_request = mysqli_fetch_all($Sql_query,MYSQLI_ASSOC);
      ?>
-    <title>webdamn.com : Demo User Management System with PHP & MySQL</title>
+    <title>request list</title>
     <script src="js/jquery.dataTables.min.js"></script>
     <script src="js/dataTables.bootstrap.min.js"></script>		
     <link rel="stylesheet" href="css/dataTables.bootstrap.min.css" />
@@ -22,7 +18,7 @@
     <link rel="stylesheet" href="css/style.css">
     <?php include('include/container.php');?>
     <div class="container contact">	
-	<h2>Example: User Management System with PHP & MySQL</h2>	
+	<h2>Request List from Employees</h2>	
 	<?php include 'menus.php';
      ?>
     
@@ -39,7 +35,7 @@
 		</div>
 		<form method="POST" > 
             <div>
-                <textarea name="reject_comments" id="reject_comments" cols="60" rows="10"></textarea>
+                <textarea name="rejectcomments" id="rejectcomments" cols="60" rows="10"></textarea>
             </div>
             <div class="btn_update">
                 <input type="submit" name="btn_update" id="btn_update" class="btn btn-info" value="Submit" />
@@ -49,15 +45,13 @@
         <?php 
            
           $ids= $_GET['id'];
-         // $sql1 = "SELECT * FROM request WHERE id = {$ids}";
-         // $result = mysqli_query($con, $sql1);
-         // $row = mysqli_fetch_array($result);
+         
           if(isset($_POST['btn_update'])){
 
             $course_id=$_GET['id'];
-            $reject_comments = $_POST['reject_comments'];
+            $rejectcomments = $_POST['rejectcomments'];
             $updateQuery = "UPDATE request 
-			SET reject_comments = '".$_POST["reject_comments"]."', `status`= 3
+			SET rejectcomments = '".$_POST["rejectcomments"]."', `status`= 3
 			WHERE id={$ids}";
             $isUpdated = mysqli_query($con, $updateQuery);
            // header("location:requestlist.php"); 
@@ -82,31 +76,7 @@
 
     // }
      
-	// Check if id is set or not, if true,// window.history.go(-2);
-	// toggle else simply go back to the page
 	
-    
-		// Store the value from get to
-		// a local variable "course_id"
-
-		
-
-		// SQL query that sets the status to
-		// 0 to indicate deactivation.
-		// $sql="UPDATE `request` SET
-		// 	`status`=3 WHERE id='$course_id'";
-
-		// // Execute the query
-		// mysqli_query($con,$sql);
-	
-
-	// Go back to list page after done
-   
-    //using echo function
-    //     echo "<script>
-    
-    //     window.history.go(-1);
-    // </script>";
 
 ?>
 

@@ -6,7 +6,7 @@ class User extends Dbconfig {
     protected $userName;
     protected $password;
 	protected $dbName;
-	private $userTable = 'manager';
+	private $userTable = 'user';
 	private $dbConnect = false;
     public function __construct(){
         if(!$this->dbConnect){ 		
@@ -525,10 +525,10 @@ class User extends Dbconfig {
 			
 			$userRows[] = $users['id'];
 			$userRows[] = $users['status'];
-			$userRows[] = $users['employee_name'];			
+			$userRows[] = $users['employeename'];			
 			$userRows[] = $users['company'];	
-			$userRows[] = $users['asset_type'];	
-			$userRows[] = $users['asset_details'];
+			$userRows[] = $users['assettype'];	
+			$userRows[] = $users['assetdetails'];
 			
 		$userRows[] = '<button type="button" name="update" id="'.$users["id"].'" class="btn btn-warning btn-xs update">Update</button>';
 			$userRows[] = '<button type="button" name="delete" id="'.$users["id"].'" class="btn btn-danger btn-xs delete" >Delete</button>';
