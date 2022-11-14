@@ -4,14 +4,14 @@ $user = new User();
 $errorMessage =  $user->adminLogin();
 include('include/header.php');
 ?>
-<title>webdamn.com : Demo User Management System with PHP & MySQL</title>
+<title>manager login</title>
 <?php include('include/container.php');?>
 <div class="container contact">	
-	<h2>Example: User Management System with PHP & MySQL</h2>	
+	<h2></h2>	
 	<div class="col-md-6">                    
 		<div class="panel panel-info">
 			<div class="panel-heading" style="background:#00796B;color:white;">
-				<div class="panel-title">Admin In</div>                        
+				<div class="panel-title">Manager In</div>                        
 			</div> 
 			<div style="padding-top:30px" class="panel-body" >
 				<?php if ($errorMessage != '') { ?>

@@ -16,7 +16,7 @@ $con = mysqli_connect($host,$username,$password,$database);
         }    
         $start_from = ($page-1) * $per_page_record; 
 
-	$sql = "SELECT * FROM request  WHERE managerid ='".$_SESSION['adminUserid']."'  ORDER BY id DESC LIMIT $start_from, $per_page_record";
+	$sql = "SELECT * FROM request  WHERE managerid ='".$_SESSION['adminUserid']."'  ORDER BY status=1 DESC, id DESC LIMIT $start_from, $per_page_record";
 	$Sql_query = mysqli_query($con,$sql);
 	$All_request = mysqli_fetch_all($Sql_query,MYSQLI_ASSOC);
 
@@ -30,7 +30,7 @@ $con = mysqli_connect($host,$username,$password,$database);
 <link rel="stylesheet" href="css/style.css">
 <style>
     th, td{
-        text-align:center;
+        text-align:left;
     }
     .btn{
 			background-color: red;
@@ -134,7 +134,11 @@ $con = mysqli_connect($host,$username,$password,$database);
         display: inline-block;  
         float: left; 
         width: 20%;
-    }    
+    } 
+    .searching{
+        display: inline-block;
+        justify-content: space-between;
+    }   
 
     </style>
 <?php include('include/container.php');?>
@@ -149,8 +153,8 @@ $con = mysqli_connect($host,$username,$password,$database);
 				<div class="col-md-10">
 					<h3 class="panel-title"></h3>
 				</div>
-				<div class="col-ms-6" >
-                    <div id="requestlist_filter" class="dataTables_filter">
+				<div class="searching" >
+                    <div id="requestlist_filter" class="search">
                         <label >Search: <input type="search"  class="form-control input-sm">
 					    
                         </label>
@@ -164,9 +168,11 @@ $con = mysqli_connect($host,$username,$password,$database);
 					<th>Employee ID</th>					
 					<th>Employee Name</th>
                     <th>Employee Email</th>
+                    <th>Mobile Number</th>
 					<th>Company</th>
 					<th>Asset Type</th>
-					<th>Asset Detail</th>					
+					<th>Asset Detail</th>
+                    <th>Comments</th>					
 					<th>Status</th>
 					<!-- <th></th> -->
 					
@@ -177,9 +183,11 @@ $con = mysqli_connect($host,$username,$password,$database);
 				<td><?php echo $request['employeeid']; ?></td>
                 <td><?php echo $request['employeename']; ?></td>
                 <td><?php echo $request['employeemailid']; ?></td>
+                <td><?php echo $request['mobile']; ?></td>
                 <td><?php echo $request['company']; ?></td>
                 <td><?php echo $request['assettype']; ?></td>
                 <td><?php echo $request['assetdetails']; ?></td>
+                <td><?php echo $request['comments']; ?></td>
                 <td>
 					<?php
 					if($request['status']=="1"){
@@ -206,7 +214,8 @@ $con = mysqli_connect($host,$username,$password,$database);
                     else
                     echo "<p class=pending >Status Pending</p>";
 					?>
-			</tr>
+		</td>	
+        </tr>
 		<?php
 				} ?>
 
